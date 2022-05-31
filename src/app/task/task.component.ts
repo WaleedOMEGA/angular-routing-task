@@ -29,22 +29,38 @@ export class TaskComponent implements OnInit {
     // "this.activatedRoute.paramMap" returns an observable with emit an
     // event each time there is a route parameter change
     this.activatedRoute.paramMap.subscribe((params) => {
-      const idAsString: string|null = params.get('id');
-      if (idAsString === null) {
-        this.task = introTask;
-        return;
-      }
-      const id = +idAsString;
-      if (isNaN(id)) {
-        this.task = 'error';
-      } else { console.log('id in url: ' + id); }
+      const idAsString: string | null = params.get('id');
+
+      this.handleId(idAsString);
+
     });
 
-    // sample 2:
-    // "this.http.getTaskForId(<id>)" calls (asynchronous network call)
-    // a http service and returns an observable of task description for the requested task id.
-    this.http.getTaskForId(2)?.subscribe((task) => {
+
+  }
+  handleId(id: string | null): void {
+    console.log(id);
+    if (id === null) {
+   this.task = introTask;
+   return;
+ }
+    const Id = +id;
+    if (isNaN(Id)) {
+   this.task = 'error';
+ } else {
+   this.getTask(Id);
+ }
+  }
+  getTask(id: number): void {
+    this.task = 'loading';
+    this.http.getTaskForId(id)?.subscribe((task) => {
       this.task = task;
-    });
+
+
+    },
+      err => {
+        this.task = 'error';
+      }
+
+    );
   }
 }
