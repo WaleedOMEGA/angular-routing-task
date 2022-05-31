@@ -1,0 +1,14 @@
+<ng-container [ngSwitch]="task">
+	<ng-container *ngSwitchCase="'loading'">
+		<p>Loading...</p>
+	</ng-container>
+
+	<ng-container *ngSwitchCase="'error'">
+		<p>Unable to load the task :-/</p>
+	</ng-container>
+
+	<ng-container *ngSwitchDefault>
+		<h2>{{ $any(task).title }}</h2>
+		<p>{{ $any(task).description}}</p>
+	</ng-container>
+</ng-container>
