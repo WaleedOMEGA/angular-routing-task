@@ -11,12 +11,12 @@ export class AppComponent {
 
   /* Function for manual testing */
 
-  noIdInUrl() {
+  noIdInUrl(): void {
     this.router.navigate(['/']);
   }
 
-  idInUrl(id?: string) {
-    if (!id) id = Math.floor(Math.random() * 6 + 1).toString();
+  idInUrl(id?: string): void {
+    if (!id) { id = Math.floor(Math.random() * 6 + 1).toString(); }
     this.router.navigate(['/', id]);
   }
 }

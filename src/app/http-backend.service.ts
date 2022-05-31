@@ -44,11 +44,11 @@ export class HttpBackendService {
   constructor() {}
 
   // simulate an asynchronous http call to get a task. You do not need to understand this code...
-  getTaskForId(id): Observable<Task> {
+  getTaskForId(id: number): Observable<any>|undefined {
     return of(mockData.find((task) => task.id === id)).pipe(
       delay(Math.floor(Math.random() * 2000 + 100)),
       tap((task) => {
-        if (!task) throw new Error('No such entry');
+        if (!task) { throw new Error('No such entry'); }
       })
     );
   }

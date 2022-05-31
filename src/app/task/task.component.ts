@@ -19,7 +19,7 @@ export class TaskComponent implements OnInit {
     private http: HttpBackendService
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): any {
     /* *******************************************************************************************
      * The sample code below is just here to help you (you have somehow to combine the 2 samples).
      * You can delete it once you have read it.
@@ -29,7 +29,7 @@ export class TaskComponent implements OnInit {
     // "this.activatedRoute.paramMap" returns an observable with emit an
     // event each time there is a route parameter change
     this.activatedRoute.paramMap.subscribe((params) => {
-      const idAsString: string = params.get('id');
+      const idAsString: string|null = params.get('id');
       if (idAsString === null) {
         this.task = introTask;
         return;
@@ -37,12 +37,13 @@ export class TaskComponent implements OnInit {
       const id = +idAsString;
       if (isNaN(id)) {
         this.task = 'error';
-      } else console.log('id in url: ' + id);
+      } else { console.log('id in url: ' + id); }
     });
 
     // sample 2:
-    // "this.http.getTaskForId(<id>)" calls (asynchronous network call) a http service and returns an observable of task description for the requested task id.
-    this.http.getTaskForId(2).subscribe((task) => {
+    // "this.http.getTaskForId(<id>)" calls (asynchronous network call)
+    // a http service and returns an observable of task description for the requested task id.
+    this.http.getTaskForId(2)?.subscribe((task) => {
       this.task = task;
     });
   }
